@@ -46,8 +46,11 @@ namespace QuickGraph.Algorithms.TopologicalSort
 
         private void BackEdge(TEdge args)
         {
-            if (!this.AllowCyclicGraph)
-                throw new NonAcyclicGraphException();
+            if (!this.AllowCyclicGraph) {
+                var exception = new NonAcyclicGraphException();
+                exception.Data.Add("Edge", args);
+                throw exception;
+            }
         }
 
         private void VertexFinished(TVertex v)
